@@ -5,13 +5,11 @@ namespace App\Http\Services;
 use App\Models\Package;
 use App\Helpers\Package\PackageStatus;
 use Illuminate\Support\Collection;
-use App\Helpers\User\UserInfo;
+use App\Models\User;
 
 class PackageService
 {
     // Helper class for extra logic
-
-    
 
     public static function pushStatus(Package $package)
     {
@@ -47,14 +45,21 @@ class PackageService
             'senders_id',
             'receivers_id',
             'package_number',
-            '_token'
+            '_token',
+            'receivers_address',
+            'senders_address'
         ];
 
-        $receivers_address = $data->except(array_merge(UserInfo::$senders_address_fields, $filter));
-        $senders_address = $data->except(array_merge(UserInfo::$receivers_address_fields, $filter));
+        $receivers_address = $data->except(array_merge(User::$senders_address_fields, $filter));
+        $senders_address = $data->except(array_merge(User::$receivers_address_fields, $filter));
 
-        $service = new GoogleApiService();
-        $result = $service->addressToCoordinates([$senders_address, $receivers_address]);
+
+        $service = (new GoogleApiService())->addressToCoordinates([$senders_address, $receivers_address]);
+
+        $result = [
+            'senders_coordinates' => $service[0].','.$service[1],
+            'receivers_coordinates'=> $service[2].','.$service[3],
+        ];
         
         return $result;
     }

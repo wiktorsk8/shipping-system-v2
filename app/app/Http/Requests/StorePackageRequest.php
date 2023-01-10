@@ -45,11 +45,16 @@ class StorePackageRequest extends FormRequest
             'receivers_postal_code' => 'required',
             'receivers_street_name' => 'required',
             'receivers_flat_number' => 'required',
-            'receivers_street_number' => 'required'
+            'receivers_street_number' => 'required',
+            'senders_address' => 'required',
+            'receivers_address' => 'required'
         ];
     }
 
-    
+    private function convert_adress($data = []){
+        $address = implode(' ', $data);
+        return $address;
+    }   
 
     public function prepareForValidation()
     {
@@ -58,7 +63,21 @@ class StorePackageRequest extends FormRequest
             'status' => PackageStatus::PACKAGE_STATUS['In preparation'],
             'senders_id' => Auth::user()->id,
             'package_number' => PackageIdGenerator::generate(Auth::user()->id, request()->name),
-            'receivers_id' => (int)$this->receivers_id
+            'receivers_id' => (int)$this->receivers_id,
+            'senders_address' => $this->convert_adress(
+                ['city' => $this->city,
+                'postal_code' => $this->postal_code,
+                'street_name' => $this->street_name,
+                'street_number' => $this->street_number,
+                'flat_number' => $this->flat_number]
+            ),
+            'receivers_address' => $this->convert_adress(
+                ['receivers_city' => $this->receivers_city,
+                'receivers_postal_code' => $this->receivers_postal_code,
+                'receivers_street_name' => $this->receivers_street_name,
+                'receivers_street_number' => $this->receivers_street_number,
+                'receivers_flat_number' => $this->receivers_flat_number]
+            ),
         ]);
     }
 

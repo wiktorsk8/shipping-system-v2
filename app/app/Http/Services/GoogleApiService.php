@@ -4,6 +4,8 @@ namespace App\Http\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use App\Models\Package;
+use Exception;
 
 class GoogleApiService
 {
@@ -13,7 +15,9 @@ class GoogleApiService
 
     private $your_location = '52.406654,17.069209'; 
 
-    public function getDistance(string $coordinates)
+    protected $max_distance = '0.21241491324293';
+
+    private function getDistance(string $coordinates)
     {
         $params = [
             'destinations' => $coordinates,
@@ -28,6 +32,8 @@ class GoogleApiService
             'duration' => $response['rows'][0]['elements'][0]['duration']
         ];
 
+
+
         return $result;
     }
 
@@ -37,6 +43,40 @@ class GoogleApiService
         $response = Http::post($this->geolocate.'key='.$key);
 
         dd($response);
+    }
+
+    private function isInArea(string $coordinates){
+        if(empty($coordinates)){
+            return false;
+        }
+
+        $coordinates = explode(',', $coordinates);
+        $location = explode(',', $this->your_location);
+
+
+        $dist = sqrt(pow((int)$coordinates[0] - (int)$location[0], 2) + pow((int)$coordinates[1] - (int)$location[1], 2));
+
+        if($dist <= $this->max_distance){
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getAllPointsInArea(){
+
+        $packages = Package::all();
+        
+        $data = [];
+
+        foreach($packages as $package){
+            if($this->isInArea($package->senders_coordinates)){
+                array_push($data, $package);
+            }
+        }
+
+        return $data;
+
     }
 
     public function addressToCoordinates($data){

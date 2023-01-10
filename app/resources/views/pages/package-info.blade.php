@@ -34,7 +34,7 @@
                             <td>{{$package->senders_id}}</td>
                             <td>{{$package->receivers_id}}</td>
                             <td>{{$package->status}}</td>
-                            <td> <a href="{{route('dashboard')}}" class="text-decoration-none">
+                            <td> <a href="{{route('update.status', $package->id)}}" class="text-decoration-none">
                                     <x-primary-button>
                                         {{'Start Delivery'}}
                                     </x-primary-button>

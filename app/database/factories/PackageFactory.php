@@ -5,9 +5,10 @@ namespace Database\Factories;
 
 use App\Helpers\Package\PackageIdGenerator;
 use App\Helpers\Package\PackageStatus;
-use App\Helpers\User\UserInfo;
+use App\Helpers\User\UserList;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Helpers\Enums\UserRole;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Package>
@@ -21,12 +22,11 @@ class PackageFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->realText(mt_rand(10, 16));        // fake package name
-        $clients = new UserInfo(UserRole::Client->value);    // get all users     
-        $everyUserId = $clients->GetIdList();                   // get id list of all users    
-        $id = $this->faker->randomElement($everyUserId);        // get random id
+        $name = $this->faker->realText(mt_rand(10, 16));                        // fake package name
+        $everyUserId = (new UserList(UserRole::Client->value))->getIdList();    // get id list of all users                                                                  
+        $id = $this->faker->randomElement($everyUserId);                        // get random id
 
-        unset($everyUserId[array_search($id, $everyUserId)]);   // delete choosen id from list to prevent the situation when senders_id == receivers_id    
+        unset($everyUserId[array_search($id, $everyUserId)]);                   // delete choosen id from list to prevent the situation when senders_id == receivers_id    
 
         return [
             'name' => $name,

@@ -19,7 +19,11 @@ class Package extends Model
         'cash_on_delivery',
         'receivers_id',
         'senders_id',
-        'status'
+        'status',
+        'senders_coordinates',
+        'receivers_coordinates',
+        'package_number'
+
     ];
 
     protected $with = [
