@@ -13,19 +13,20 @@ class GoogleApiService
     protected $geolocate = 'https://www.googleapis.com/geolocation/v1/geolocate?';
     protected $geocode = 'https://maps.googleapis.com/maps/api/geocode/json';
 
-    private $your_location = '52.406654,17.069209'; 
+    public $your_location = '52.406654,17.069209'; 
 
     protected $max_distance = '0.21241491324293';
 
-    private function getDistance(string $coordinates)
+    public function getDistance(string $origins, $destination)
     {
         $params = [
-            'destinations' => $coordinates,
-            'origins' => $this->your_location,
+            'destinations' => $origins,
+            'origins' => $destination,
             'key' => config('services.google_api.key')
         ];
 
         $response = Http::get($this->base, $params);
+
 
         $result = [
             'distance' => $response['rows'][0]['elements'][0]['distance'],
@@ -66,7 +67,7 @@ class GoogleApiService
     public function getAllPointsInArea(){
 
         $packages = Package::all();
-        
+
         $data = [];
 
         foreach($packages as $package){

@@ -53,6 +53,10 @@ class Package extends Model
         $this->attribute['status'] = $status;   
     }
 
+    public function getSendersCoordinates(){
+        return $this->senders_coordinates;
+    }
+
     public function scopeSortByDate($query, $sort){
         if($sort != null){
             if($sort == 'desc'){

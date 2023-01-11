@@ -3,6 +3,7 @@
 use App\Http\Controllers\PackageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Services\Delivery\DeliveryManager;
 use App\Http\Services\GoogleApiService;
 
 /*
@@ -19,15 +20,20 @@ use App\Http\Services\GoogleApiService;
 Route::get('/dashboard', [PageController::class, 'index'])->name('dashboard');
 
 
-Route::get('/send', function(){
-    return view('pages.send');
-})->name('send.package');
+Route::middleware('client')->group(function(){
+    Route::get('tracking', [PackageController::class, 'loadTracking'])->name('load.tracking');
+    Route::get('/send', function(){
+        return view('pages.send');
+    })->name('send.package');
+});
 
 
 
-Route::get('tracking', [PackageController::class, 'loadTracking'])->name('load.tracking');
+Route::middleware('courier')->group(function(){
+    Route::get('fast-delivery', [DeliveryManager::class, 'deliveryProcess'])->name('fast.delivery');
+});
 
-Route::get('test', [GoogleApiService::class, 'getAllPointsInArea']);
+
 
 Route::middleware(['auth'])->group(function(){
     Route::resource('packages', PackageController::class);

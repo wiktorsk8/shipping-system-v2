@@ -47,11 +47,21 @@
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
+               
 
                 <x-primary-button class="ml-3">
                     {{ __('Log in') }}
                 </x-primary-button>
             </div>
+
+            <div class="flex items-center justify-center mt-4">
+                @if (Route::has('register'))
+                <a class="underline text-sm text-gray-600 text-center hover:text-gray-900" href="{{ route('register') }}">
+                    {{ __("Don't have an account? Sign up here.") }}
+                </a>
+                @endif
+            </div>
+
         </form>
     </x-auth-card>
 </x-guest-layout>

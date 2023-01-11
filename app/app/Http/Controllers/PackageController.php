@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PrevalidateStoreRequest;
 use App\Http\Requests\StorePackageRequest;
 use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\PackageService;
-use App\Helpers\Requests\RequestHelper;
 
 
 class PackageController extends Controller
@@ -28,6 +26,8 @@ class PackageController extends Controller
         $validated = array_merge($request->all(), $coordinates);
 
         Package::create($validated);
+
+        
 
         return redirect()->route('dashboard');
     }

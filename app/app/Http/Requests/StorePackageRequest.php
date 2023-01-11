@@ -40,11 +40,11 @@ class StorePackageRequest extends FormRequest
             'postal_code' => 'required',
             'street_name' => 'required',
             'street_number' => 'required',
-            'flat_number' => 'required',
+            'flat_number' => 'nullable',
             'receivers_city' => 'required',
             'receivers_postal_code' => 'required',
             'receivers_street_name' => 'required',
-            'receivers_flat_number' => 'required',
+            'receivers_flat_number' => 'nullable',
             'receivers_street_number' => 'required',
             'senders_address' => 'required',
             'receivers_address' => 'required'
