@@ -20,8 +20,8 @@ class GoogleApiService
     public function getDistance(string $origins, $destination)
     {
         $params = [
-            'destinations' => $origins,
-            'origins' => $destination,
+            'destinations' => $destination,
+            'origins' => $origins,
             'key' => config('services.google_api.key')
         ];
 

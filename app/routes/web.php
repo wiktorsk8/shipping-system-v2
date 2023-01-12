@@ -30,7 +30,7 @@ Route::middleware('client')->group(function(){
 
 
 Route::middleware('courier')->group(function(){
-    Route::get('fast-delivery', [DeliveryManager::class, 'deliveryProcess'])->name('fast.delivery');
+    Route::get('fast-delivery', [DeliveryManager::class, 'callculateRoute'])->name('fast.delivery');
 });
 
 
