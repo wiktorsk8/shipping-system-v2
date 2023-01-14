@@ -27,6 +27,7 @@ Route::middleware('client')->group(function(){
     })->name('send.package');
 });
 
+Route::get('test',[DeliveryManager::class, 'processDelivery']);
 
 
 Route::middleware('courier')->group(function(){

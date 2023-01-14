@@ -9,15 +9,7 @@ use Exception;
 
 class GoogleApiService
 {
-    protected $base = 'https://maps.googleapis.com/maps/api/distancematrix/json?';
-    protected $geolocate = 'https://www.googleapis.com/geolocation/v1/geolocate?';
-    protected $geocode = 'https://maps.googleapis.com/maps/api/geocode/json';
-
-    public $your_location = '52.406654,17.069209'; 
-
-    protected $max_distance = '0.21241491324293';
-
-    public function getDistance(string $origins, $destination)
+    public static function getDistance(string $origins, $destination)
     {
         $params = [
             'destinations' => $destination,
@@ -25,7 +17,7 @@ class GoogleApiService
             'key' => config('services.google_api.key')
         ];
 
-        $response = Http::get($this->base, $params);
+        $response = Http::get(config('services.google_api.distance'), $params);
 
 
         $result = [
@@ -38,49 +30,15 @@ class GoogleApiService
         return $result;
     }
 
-    public function getLocation(){
+    public static function getLocation(){
         $key = config('services.google_api.key');
 
-        $response = Http::post($this->geolocate.'key='.$key);
+        $response = Http::post(config('services.google_api.geolocate').'key='.$key);
 
         dd($response);
     }
 
-    private function isInArea(string $coordinates){
-        if(empty($coordinates)){
-            return false;
-        }
-
-        $coordinates = explode(',', $coordinates);
-        $location = explode(',', $this->your_location);
-
-
-        $dist = sqrt(pow((int)$coordinates[0] - (int)$location[0], 2) + pow((int)$coordinates[1] - (int)$location[1], 2));
-
-        if($dist <= $this->max_distance){
-            return true;
-        }
-
-        return false;
-    }
-
-    public function getAllPointsInArea(){
-
-        $packages = Package::all();
-
-        $data = [];
-
-        foreach($packages as $package){
-            if($this->isInArea($package->senders_coordinates)){
-                array_push($data, $package);
-            }
-        }
-
-        return $data;
-
-    }
-
-    public function addressToCoordinates($data){
+    public static function addressToCoordinates($data){
 
         $result = [];
         $coordinates = [];
@@ -95,7 +53,7 @@ class GoogleApiService
                 'address' => $value,
                 'key' => config('services.google_api.key')
             ];
-            $response = Http::get($this->geocode, $params);
+            $response = Http::get(config('services.google_api.geocode'), $params);
             
             $collection = collect(json_decode($response)->results[0]->geometry->location);
             array_push($coordinates, $collection->get('lat'), $collection->get('lng'));

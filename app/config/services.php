@@ -32,7 +32,11 @@ return [
     ],
 
     'google_api' => [
-        'key' => env('GOOGLE_MAPS_API_KEY')
+        'key' => env('GOOGLE_MAPS_API_KEY'),
+        'distance' => 'https://maps.googleapis.com/maps/api/distancematrix/json?',
+        'geolocate' => 'https://www.googleapis.com/geolocation/v1/geolocate?',
+        'geocode' =>  'https://maps.googleapis.com/maps/api/geocode/json'
+
     ]
 
 ];

@@ -212,4 +212,6 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+    'google_api_distance_call' => 'https://maps.googleapis.com/maps/api/distancematrix/json?'
+
 ];

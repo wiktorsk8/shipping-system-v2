@@ -3,59 +3,84 @@
 namespace App\Http\Services\Delivery;
 
 use App\Http\Services\GoogleApiService;
+use App\Models\Package;
+use Exception;
+use App\Http\Services\Delivery\Point;
 
 class DeliveryManager
 {
-    public function callculateRoute()
-    {
+    private $available_points = [];
 
-        $service = new GoogleApiService();
-        $points = $service->getAllPointsInArea();
-       // dd($points);
+    private $your_location = '52.474820,17.286664';
 
-        $first_point = $this->closestPoint($service->your_location, $points, $service); 
-
-        $order = $this->recu($first_point, $points, [],  $service);
-
-        dump($order);
-
+    public function processDelivery(){
+        return $this->callculateRoute();
     }
 
-    private function closestPoint($B, array $points, GoogleApiService $service)
+    private function callculateRoute()
+    {
+        $path = [];
+
+        $this->getAllPointsInArea($this->loadPoints());
+
+        $first_point = new Point($this->your_location);
+
+        $current_point = $this->closestPoint($first_point, $this->available_points);
+        array_push($path, $current_point);
+
+
+        while(!empty($this->available_points)){
+            $current_point = $this->closestPoint($current_point, $this->available_points);
+            array_push($path, $current_point);
+        }
+
+        dd($path);
+        
+        return $path;
+    }
+
+    private function closestPoint(Point $origin, array $points)
     {
         $smallest_distance = 100000000000000;
-        $first_point = null;
+        $closest_point = null;
 
-        foreach ($points as $point) {
-            if ($B != $point->getSendersCoordinates()) {
-                $current_distance = $service->getDistance($B, $point->getSendersCoordinates());
-                if ($current_distance['distance']['value'] < $smallest_distance) 
-                {
-                    $first_point = $point;
-                }
+        foreach($points as $point){
+            $dist = GoogleApiService::getDistance($origin->coordinates, $point->coordinates);
+            if($dist['distance']['value']<$smallest_distance){
+                $smallest_distance = $dist['distance']['value'];
+                $closest_point = $point;
             }
         }
 
-
-        return $first_point;
-    }
-
-    private function recu($x, array $points, array $order, GoogleApiService $service){
-        if (empty($points)){
-            
-            return $order;
+        if (isset($closest_point)) {
+            $key = array_search($closest_point, $this->available_points);
+            unset($this->available_points[$key]);
+            return $closest_point;
+        }else{
+            throw new Exception('point not found');
         }
-        $closest_point = $this->closestPoint($x, $points, $service);
-
-        $key = array_search($closest_point, $points);
-        unset($points[$key]);
-
-        array_push($order, $closest_point);
-
-
-        return $this->recu($closest_point, $points, $order,  $service);
     }
 
+    private function loadPoints(): array
+    {
+        $packages = Package::where('senders_coordinates', '!=', '')->get();
+        $points = [];
 
+        foreach ($packages as $package) {
+            $point = new Point($package->senders_coordinates);
 
+            array_push($points, $point);
+        }
+
+        return $points;
+    }
+
+    private function getAllPointsInArea(array $points)
+    {
+        foreach ($points as $point) {
+            if ($point->isInArea($this->your_location)) {
+                array_push($this->available_points, $point);
+            }
+        }
+    }
 }
