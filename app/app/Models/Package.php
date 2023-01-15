@@ -13,36 +13,22 @@ class Package extends Model
 
     protected $fillable = [
         'name',
-        'senders_address',
-        'receivers_address',
         'size',
-        'cash_on_delivery',
-        'receivers_id',
-        'senders_id',
         'status',
-        'senders_coordinates',
-        'receivers_coordinates',
-        'package_number'
-
+        'senders_address',
+        'senders_email',
+        'reipient_address',
+        'recipient_email',
     ];
 
-    protected $with = [
-        'receiver',
-        'sender'
-    ];
+    
 
-
-
-    public function sender(){
-        return $this->belongsTo(User::class, 'senders_id');
+    public function sendersAddress(){
+        return $this->hasOne(Address::class, 'senders_address');
     }
 
-    public function receiver(){
-        return $this->belongsTo(User::class, 'receivers_id');
-    }
-
-    public function getStatus(){
-        return $this->status;
+    public function recipientsAddress(){
+        return $this->hasOne(Address::class, 'recipients_address');
     }
 
     public function getStatusKey(){
@@ -51,10 +37,6 @@ class Package extends Model
 
     public function setStatusAttributes($status){
         $this->attribute['status'] = $status;   
-    }
-
-    public function getSendersCoordinates(){
-        return $this->senders_coordinates;
     }
 
     public function scopeSortByDate($query, $sort){

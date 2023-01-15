@@ -9,6 +9,7 @@
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control" name="name" id="name" placeholder="Enter package name">
+        <x-input-error :messages="$errors->get('name')" class="mt-2" />
       </div>
       <div class="form-group">
         <select name="size" id="size">
@@ -20,8 +21,8 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="receivers_id">receivers id</label>
-        <input type="number" class="form-control" id="receivers_id" name="receivers_id" placeholder="Enter receivers id">
+        <label for="recipients_email">recipients_email</label>
+        <input type="text" class="form-control" id="recipients_email" name="recipients_email" placeholder="Enter recipients email">
         <div>
           <h1>Your addres:</h1>
         </div>
@@ -44,31 +45,31 @@
         </div>
         <div class="form-group">
           <label for="flat_number">Flat number</label>
-          <input type="number" class="form-control" id="flat_number" name="flat_number" placeholder="ex. 4">
+          <input type="text" class="form-control" id="flat_number" name="flat_number" placeholder="ex. 4">
         </div>
 
         <div>
-          <h1>Receivers addres:</h1>
+          <h1>Recipients addres:</h1>
         </div>
         <div class="form-group">
-          <label for="receivers_city">City</label>
-          <input type="text" class="form-control" id="receivers_city" name="receivers_city" placeholder="ex. Poznan">
+          <label for="recipients_city">City</label>
+          <input type="text" class="form-control" id="recipients_city" name="recipients_city" placeholder="ex. Poznan">
         </div>
         
         <div class="form-group">
-          <label for="receivers_postal_code">Postal Code</label>
-          <input type="text" class="form-control" id="receivers_postal_code" name="receivers_postal_code" placeholder="XX-XXX">
+          <label for="recipients_postal_code">Postal Code</label>
+          <input type="text" class="form-control" id="recipients_postal_code" name="recipients_postal_code" placeholder="XX-XXX">
         </div>
         <div class="form-group">
-          <label for="receivers_street_name">Street name</label>
-          <input type="text" class="form-control" id="receivers_street_name" name="receivers_street_name" placeholder="ex. Armii Krajowej">
+          <label for="recipients_street_name">street name</label>
+          <input type="text" class="form-control" id="recipients_street_name" name="recipients_street_name" placeholder="ex. Armii Krajowej">
         </div>
         <div class="form-group">
-          <label for="receivers_street_number">Street number</label>
-          <input type="text" class="form-control" id="receivers_street_number" name="receivers_street_number" placeholder="ex. Armii Krajowej 4(full name)">
+          <label for="recipients_street_number">Street number</label>
+          <input type="text" class="form-control" id="recipients_street_number" name="recipients_street_number" placeholder="ex. Armii Krajowej 4(full name)">
         <div class="form-group">
-          <label for="receivers_flat_number">Flat number</label>
-          <input type="number" class="form-control" id="receivers_flat_number" name="receivers_flat_number" placeholder="ex. 4">
+          <label for="recipients_flat_number">Flat number</label>
+          <input type="text" class="form-control" id="recipients_flat_number" name="recipients_flat_number" placeholder="ex. 4">
         </div>
         <x-primary-button class="ml-3 m-3">
           {{ __('Submit') }}

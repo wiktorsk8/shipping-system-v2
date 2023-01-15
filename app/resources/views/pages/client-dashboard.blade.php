@@ -5,7 +5,7 @@
                 <div class="p-6 bg-white border-b border-gray-200 d-flex p-5 justify-content-center text-center ">
                     
                     <div class="d-flex p-2 justify-content-center">
-                        <a href="/send" class="link-primary text-decoration-none">
+                        <a href="{{route('packages.create')}}" class="link-primary text-decoration-none">
                             <h1>Nadaj paczke</h1>
                         </a>
                     </div>
@@ -15,7 +15,7 @@
 
                 <div class="p-6 bg-white border-b border-gray-200 d-flex p-5 justify-content-center text-center ">
                     <div class="d-flex p-2 justify-content-center">
-                        <a href="/tracking" class="link-primary text-decoration-none">
+                        <a href="{{route('load.tracking')}}" class="link-primary text-decoration-none">
                             <h1>Śledź paczke</h1>
                         </a>
                     </div>

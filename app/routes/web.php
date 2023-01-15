@@ -4,7 +4,7 @@ use App\Http\Controllers\PackageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Services\Delivery\DeliveryManager;
-use App\Http\Services\GoogleApiService;
+use App\Models\Package;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,12 +22,7 @@ Route::get('/dashboard', [PageController::class, 'index'])->name('dashboard');
 
 Route::middleware('client')->group(function(){
     Route::get('tracking', [PackageController::class, 'loadTracking'])->name('load.tracking');
-    Route::get('/send', function(){
-        return view('pages.send');
-    })->name('send.package');
 });
-
-Route::get('test',[DeliveryManager::class, 'processDelivery']);
 
 
 Route::middleware('courier')->group(function(){

@@ -15,16 +15,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('packages', function (Blueprint $table) {
-            $table->id();
+            $table->id('package_number');
             $table->string('name');
-            $table->string('senders_address');
-            $table->string('receivers_address');
             $table->string('size');
-            $table->boolean('cash_on_delivery')->nullable();
-            $table->foreignId('senders_id');
-            $table->foreignId('receivers_id');
-            $table->foreignId('package_number');                       // unique 13 digits package tracking number
             $table->tinyInteger('status')->default(PackageStatus::PACKAGE_STATUS['In preparation']);
+
+            $table->foreignId('senders_address');
+            $table->string('senders_email');
+
+            $table->foreignId('recipient_address');
+            $table->string('recipient_email');
+            
             $table->timestamps();
         });
     }

@@ -45,38 +45,43 @@ class User extends Authenticatable
 
     public static $senders_address_fields = [
         'city',
-        'postal_code', 
-        'street_name', 
-        'street_number', 
+        'postal_code',
+        'street_name',
+        'street_number',
         'flat_number'
     ];
 
     public static $receivers_address_fields = [
         'receivers_city',
-        'receivers_postal_code', 
-        'receivers_street_name', 
-        'receivers_street_number', 
+        'receivers_postal_code',
+        'receivers_street_name',
+        'receivers_street_number',
         'receivers_flat_number'
     ];
 
 
-    public function sent(){
+    public function sent()
+    {
         return $this->hasMany(Package::class, 'senders_id');
     }
 
-    public function receiving(){
+    public function receiving()
+    {
         return $this->hasMany(Package::class, 'receivers_id');
     }
 
-    public function isAdmin(){
+    public function isAdmin()
+    {
         return $this->role == 0 ? true : false;
     }
 
-    public function isClient(){
+    public function isClient()
+    {
         return $this->role == 1 ? true : false;
     }
 
-    public function isCourier(){
-        return $this->role == 2 ? true : false;   
+    public function isCourier()
+    {
+        return $this->role == 2 ? true : false;
     }
 }

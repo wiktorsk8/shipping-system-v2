@@ -28,58 +28,58 @@ class StorePackageRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
-            'name' => 'required',
+            'package_number' => ['required'],
+            'name' => ['required'],
             'size' => ['required', Rule::in('XS', 'S', 'M', 'L', 'XL')],
             'status' => ['required', Rule::in(PackageStatus::PACKAGE_STATUS)],
-            'receivers_id' => 'required',
-            'senders_id' => 'required',
-            'package_number' => ['required'],
-            'city' => 'required',
-            'postal_code' => 'required',
-            'street_name' => 'required',
-            'street_number' => 'required',
-            'flat_number' => 'nullable',
-            'receivers_city' => 'required',
-            'receivers_postal_code' => 'required',
-            'receivers_street_name' => 'required',
-            'receivers_flat_number' => 'nullable',
-            'receivers_street_number' => 'required',
-            'senders_address' => 'required',
-            'receivers_address' => 'required'
+            'recipients_email' => ['required'],
+            'senders_email' => ['required'],
+            'city' => ['required'],
+            'postal_code' => ['required'],
+            'street_name' => ['required'],
+            'street_number' => ['required'],
+            'flat_number' => ['required'],
+            'recipients_city' => ['required'],
+            'recipients_postal_code' => ['required'],
+            'recipients_street_name' => ['required'],
+            'recipients_flat_number' => ['required'],
+            'recipients_street_number' => ['required'],
+            'recipients_full_address' => ['required'],
+            'senders_full_address' => ['required'],
         ];
     }
 
-    private function convert_adress($data = []){
+    private function convert_adress($data = [])
+    {
         $address = implode(' ', $data);
         return $address;
-    }   
+    }
 
     public function prepareForValidation()
     {
-        // set deafult values before validation
-        $this->merge([
-            'status' => PackageStatus::PACKAGE_STATUS['In preparation'],
-            'senders_id' => Auth::user()->id,
-            'package_number' => PackageIdGenerator::generate(Auth::user()->id, request()->name),
-            'receivers_id' => (int)$this->receivers_id,
-            'senders_address' => $this->convert_adress(
-                ['city' => $this->city,
-                'postal_code' => $this->postal_code,
-                'street_name' => $this->street_name,
-                'street_number' => $this->street_number,
-                'flat_number' => $this->flat_number]
-            ),
-            'receivers_address' => $this->convert_adress(
-                ['receivers_city' => $this->receivers_city,
-                'receivers_postal_code' => $this->receivers_postal_code,
-                'receivers_street_name' => $this->receivers_street_name,
-                'receivers_street_number' => $this->receivers_street_number,
-                'receivers_flat_number' => $this->receivers_flat_number]
-            ),
-        ]);
-    }
+        $senders_full_address = [
+            $this->street_name,
+            $this->street_number,
+            $this->flat_number,
+            $this->postal_code,
+            $this->city
+        ];
 
-   
+        $recipients_full_address = [
+            $this->recipients_street_name,
+            $this->recipients_street_number,
+            $this->recipients_flat_number,
+            $this->recipients_postal_code,
+            $this->recipients_city
+        ];
+        
+        // $this->merge([
+        //     'status' => PackageStatus::PACKAGE_STATUS['In preparation'],
+        //     'senders_email' => Auth::user()->email,
+        //     'package_number' => PackageIdGenerator::generate(Auth::user()->id, request()->name),
+        //     'senders_full_adress' => $this->convert_adress($senders_full_address),
+        //     'recipient_full_adress' => $this->convert_adress($recipients_full_address),
+        // ]);
+    }
 }
