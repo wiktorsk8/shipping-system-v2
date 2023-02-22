@@ -34,33 +34,4 @@ class PackageService
     public static function readyToSend(){
         return Package::where('status', '=', (string)PackageStatus::PACKAGE_STATUS['In preparation'])->get();
     }
-
-    public static function process_request(Collection $data){
-
-        // filtering data to get only address fields
-        $filter = [
-            'name',
-            'size',
-            'status',
-            'senders_id',
-            'receivers_id',
-            'package_number',
-            '_token',
-            'receivers_address',
-            'senders_address'
-        ];
-
-        $receivers_address = $data->except(array_merge(User::$senders_address_fields, $filter));
-        $senders_address = $data->except(array_merge(User::$receivers_address_fields, $filter));
-
-
-        $service = (new GoogleApiService())->addressToCoordinates([$senders_address, $receivers_address]);
-
-        $result = [
-            'senders_coordinates' => $service[0].','.$service[1],
-            'receivers_coordinates'=> $service[2].','.$service[3],
-        ];
-        
-        return $result;
-    }
 }

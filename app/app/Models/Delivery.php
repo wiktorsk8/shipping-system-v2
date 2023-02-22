@@ -10,16 +10,16 @@ class Delivery extends Model
     use HasFactory;
 
     protected $fillable = [
-        'package_id',
-        'couriers_id'
+        'couriers_id',
+        'package_id'
     ];
 
     public function courier(){
-        return $this->hasOne(User::class, 'couriers_id');
+        return $this->belongsTo(User::class);
     }
 
     public function package(){
-        return $this->hasOne(Package::class, 'package_id');
+        return $this->belongsTo(Package::class);
     }
 
 }

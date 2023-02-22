@@ -3,32 +3,37 @@
 namespace App\Models;
 
 use App\Helpers\Package\PackageStatus;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class Package extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'package_number',
         'name',
         'size',
         'status',
-        'senders_address',
+        'senders_address_id',
         'senders_email',
-        'reipient_address',
-        'recipient_email',
+        'recipients_address_id',
+        'recipients_email',
     ];
-
     
-
-    public function sendersAddress(){
-        return $this->hasOne(Address::class, 'senders_address');
+    public function address(){
+        return $this->hasOne(Address::class, 'package_id');
     }
 
-    public function recipientsAddress(){
-        return $this->hasOne(Address::class, 'recipients_address');
+    public function deliveries(){
+        return $this->hasMany(Delivery::class, 'package_id');
+    }
+
+    public function sendersCoordinates(){  
+        return explode(",", $this->address->coordinates);
     }
 
     public function getStatusKey(){

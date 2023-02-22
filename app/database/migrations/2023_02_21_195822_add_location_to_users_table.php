@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('deliveries', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('package_id');
-            $table->foreignId('couriers_id');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('location')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deliveries');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('location');
+        });
     }
 };

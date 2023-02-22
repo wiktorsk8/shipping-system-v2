@@ -27,7 +27,7 @@ class StorePackageRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules()
-    {
+    { 
         return [
             'package_number' => ['required'],
             'name' => ['required'],
@@ -39,18 +39,18 @@ class StorePackageRequest extends FormRequest
             'postal_code' => ['required'],
             'street_name' => ['required'],
             'street_number' => ['required'],
-            'flat_number' => ['required'],
+            'flat_number' => ['nullable'],
             'recipients_city' => ['required'],
             'recipients_postal_code' => ['required'],
             'recipients_street_name' => ['required'],
-            'recipients_flat_number' => ['required'],
+            'recipients_flat_number' => ['nullable'],
             'recipients_street_number' => ['required'],
             'recipients_full_address' => ['required'],
             'senders_full_address' => ['required'],
         ];
     }
 
-    private function convert_adress($data = [])
+    private function convert_adress($data = []): string
     {
         $address = implode(' ', $data);
         return $address;
@@ -73,13 +73,13 @@ class StorePackageRequest extends FormRequest
             $this->recipients_postal_code,
             $this->recipients_city
         ];
-        
-        // $this->merge([
-        //     'status' => PackageStatus::PACKAGE_STATUS['In preparation'],
-        //     'senders_email' => Auth::user()->email,
-        //     'package_number' => PackageIdGenerator::generate(Auth::user()->id, request()->name),
-        //     'senders_full_adress' => $this->convert_adress($senders_full_address),
-        //     'recipient_full_adress' => $this->convert_adress($recipients_full_address),
-        // ]);
+
+        $this->merge([
+            'status' => PackageStatus::PACKAGE_STATUS['In preparation'],
+            'senders_email' => Auth::user()->email,
+            'package_number' => PackageIdGenerator::generate(Auth::user()->id, $this->name),
+            'senders_full_address' => $this->convert_adress($senders_full_address),
+            'recipients_full_address' => $this->convert_adress($recipients_full_address),
+        ]);
     }
 }

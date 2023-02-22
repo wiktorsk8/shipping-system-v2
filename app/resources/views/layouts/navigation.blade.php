@@ -19,8 +19,8 @@
                 
                 @if (Auth::user()->isCourier())
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('fast.delivery')" :active="request()->routeIs('dashboard')">
-                        {{ __('Fast delivery') }}
+                    <x-nav-link :href="route('auto.collect')" :active="request()->routeIs('dashboard')">
+                        {{ __('Auto-collect packages') }}
                     </x-nav-link>
                 </div>
                 @endif

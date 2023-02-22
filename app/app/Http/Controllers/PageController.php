@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 USE Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
-{
+{   
+
+    // Loads appropriate dashboard based on the user's role
     public function index()
     {
         if(auth()->check()){
@@ -18,7 +20,6 @@ class PageController extends Controller
                 return view('pages.courier-dashboard', ['packages' => $packages]);
             }
         }
-        
 
         return view('auth.login');
     }

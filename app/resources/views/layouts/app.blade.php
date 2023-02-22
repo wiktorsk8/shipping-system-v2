@@ -35,7 +35,7 @@
                 {{ $slot }}
             </main>
         </div>
-        <div class="min-h-screen bg-gray-100">
+        <div class="bg-gray-100">
             @include('layouts.footer')
         </div>
     </body>

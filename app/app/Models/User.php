@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -65,9 +67,17 @@ class User extends Authenticatable
         return $this->hasMany(Package::class, 'senders_id');
     }
 
+
     public function receiving()
     {
         return $this->hasMany(Package::class, 'receivers_id');
+    }
+
+    public function deliveries(){
+        if ($this->isClient()){
+            throw new Exception("Client can't access deliveries method.");
+        }
+        return $this->hasMany(Delivery::class, 'couriers_id');
     }
 
     public function isAdmin()
@@ -75,10 +85,12 @@ class User extends Authenticatable
         return $this->role == 0 ? true : false;
     }
 
+
     public function isClient()
     {
         return $this->role == 1 ? true : false;
     }
+
 
     public function isCourier()
     {

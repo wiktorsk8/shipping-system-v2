@@ -25,17 +25,17 @@ class PrevalidateStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','size:30'],
+            'name' => ['required', 'min:2', 'max:30'],
             'size' => ['required', Rule::in('XS', 'S', 'M', 'L', 'XL')],
             'recipients_email' => ['required', 'email'],
-            'city' => ['required', 'size:30'],
+            'city' => ['required', 'max:30'],
             'postal_code' => ['required', 'size:6'],
-            'street_name' => ['required', 'size:40'],
+            'street_name' => ['required', 'max:40'],
             'street_number' => ['required'],
             'flat_number' => ['nullable'],
-            'recipients_city' => ['required', 'size:30'],
+            'recipients_city' => ['required', 'max:30'],
             'recipients_postal_code' => ['required', 'size:6'],
-            'recipients_street_name' => ['required', 'size:40'],
+            'recipients_street_name' => ['required', 'max:40'],
             'recipients_street_number' => ['required'],
             'recipients_flat_number' => ['nullable'],
 

@@ -10,24 +10,22 @@ class Address extends Model
     use HasFactory;
 
     protected $fillable = [
-        'street',
+        'package_id',
+        'street_name',
         'street_number',
         'flat_number',
         'postal_code',
         'city',
-        'coordinates'
+        'coordinates',
+        'recipients_street_name',
+        'recipients_street_number',
+        'recipients_flat_number',
+        'recipients_postal_code',
+        'recipients_city',
+        'recipients_coordinates'
     ];
 
-    // public function convertToFullAdress(){
-    //     $properties = [
-    //         $this->street,
-    //         $this->street_number,
-    //         $this->flat_number,
-    //         $this->postal_code,
-    //         $this->city
-    //     ];
-
-    //     return implode(" ", $properties);
-    // }
-
+    public function package(){
+        return $this->belongsTo(Package::class);
+    }
 }

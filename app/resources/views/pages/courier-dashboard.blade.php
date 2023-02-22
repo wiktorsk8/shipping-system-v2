@@ -9,6 +9,16 @@
                   <div class="card">
                     <div class="card-body">
                       <div class="table-responsive">
+                      <form action="{{route('set.your.location')}}" method="POST">
+                        @csrf
+                        <label for="lat">Your location latitude (try 52.475040)</label>
+                        <input type="text" class="form-control w-25" id="lat" name="lat" placeholder="Enter latitude">
+                        <label for="lng">Your location latitude (try 17.287654)</label>
+                        <input type="text" class="form-control w-25" id="lng" name="lng" placeholder="Enter longitude">
+                        <x-primary-button>
+                          {{'update'}}
+                      </x-primary-button>
+                      </form>
                         <table class="table table-hover mb-0">
                           <thead>
                             <tr>
@@ -23,6 +33,7 @@
                             </tr>
                           </thead>
                           <tbody>
+                          @if (!empty($packages))
                             @foreach ($packages as $package)
                             <tr>
                                 
@@ -31,7 +42,7 @@
                                 <td>{{$package->senders_address}}</td>
                                 <td>{{$package->receivers_address}}</td>
                                 <td>
-                                    <a href="{{route('packages.show', ['package' => $package])}}" class="text-decoration-none">
+                                    <a href={{'packages/show/'.$package->package_number}} class="text-decoration-none">
                                         <x-primary-button>
                                             {{'->'}}
                                         </x-primary-button>
@@ -40,6 +51,10 @@
                                 </td>
                             </tr>
                             @endforeach
+                          @else
+                            <p>NO PACKAGES</p>
+                          @endif
+                           
                           </tbody>
                         </table>
                       </div>
@@ -51,5 +66,7 @@
           </div>
         </div>
       </section>
+
+
 
 </x-app-layout>

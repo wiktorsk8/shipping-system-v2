@@ -1,6 +1,6 @@
 <x-app-layout>
     <section class="intro">
-    <div class="bg-image h-100" style="background-image: url('https://mdbootstrap.com/img/Photos/new-templates/tables/img4.jpg');">
+    <div class="bg-image h-100">
       <div class="mask d-flex align-items-center h-100" style="background-color: rgba(25, 185, 234,.25);">
         <div class="container">
           <div class="row justify-content-center">
@@ -34,7 +34,7 @@
                             <td>{{$package->senders_id}}</td>
                             <td>{{$package->receivers_id}}</td>
                             <td>{{$package->status}}</td>
-                            <td> <a href="{{route('update.status', $package->id)}}" class="text-decoration-none">
+                            <td> <a href="{{route('deliveries.create',$package)}}" class="text-decoration-none">
                                     <x-primary-button>
                                         {{'Start Delivery'}}
                                     </x-primary-button>
@@ -43,14 +43,17 @@
                         </tr>
                       </tbody>
                     </table>
+                    
                   </div>
                 </div>
               </div>
+              
             </div>
           </div>
         </div>
       </div>
     </div>
+
 </section>
 
 </x-app-layout>

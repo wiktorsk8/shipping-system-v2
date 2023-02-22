@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Services\Delivery;
+namespace App\Helpers\Package;
 
-use App\Models\Package;
+// Helper class for callculating delivery route
 
 class Point{
 
     public $coordinates;
+    public $package;
+    private $max_dist = '0.59110119333249';
 
-    private $max_dist = '0.25110119333249';
-
-    public function __construct($coordinates)
+    public function __construct($coordinates, $package = null)
     {
         $this->coordinates = $coordinates;
+        $this->package = $package;
         
     }
 
@@ -20,8 +21,7 @@ class Point{
         $coordinates = explode(',', $this->coordinates);
         $location = explode(',', $your_location);
 
-
-        $dist = sqrt(pow((int)$coordinates[0] - (int)$location[0], 2) + pow((int)$coordinates[1] - (int)$location[1], 2));
+        $dist = sqrt(pow((float)$coordinates[0] - (float)$location[0], 2) + pow((float)$coordinates[1] - (float)$location[1], 2));
 
         if($dist <= $this->max_dist){
             return true;

@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'courier' => \App\Http\Middleware\CourierAuth::class,
         'client' => \App\Http\Middleware\ClientAuth::class,
+        'prevent.redirecting.back' => \App\Http\Middleware\PreventRedirectingBack::class
     ];
 }
