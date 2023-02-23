@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
+date_default_timezone_set('CET');  
+
 use App\Helpers\Package\PackageStatus;
-use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 
 class Package extends Model
 {
@@ -53,4 +52,27 @@ class Package extends Model
             } 
         }
     }
+    public static function generate(int $id, string $name): int
+    {    
+        $attributes = [$id, $name];                         // convert arguments into array
+
+        $time = str_replace(":", "", date("H:i:s"));        // sanitize date 
+        $rand = rand(1000, 9999);                          
+
+        $result = 0;                                        // converted attributes result
+        foreach ($attributes as $index) {
+            if (is_int($index)) {
+                $result += $index;
+            } else if(is_string($index)){
+                for ($i = 0; $i < 3; $i++) {
+                    $result += ord($index[$i]);             // convert string into ASCII code
+                }
+            }
+        }
+
+        $output = $rand.$result.$time;                      // merged number
+
+        return (int)$output;
+    }
+
 }

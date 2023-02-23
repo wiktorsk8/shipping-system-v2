@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Helpers\Package\PackageIdGenerator;
+use App\Models\Package;
 use App\Helpers\Package\PackageStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -77,7 +77,7 @@ class StorePackageRequest extends FormRequest
         $this->merge([
             'status' => PackageStatus::PACKAGE_STATUS['In preparation'],
             'senders_email' => Auth::user()->email,
-            'package_number' => PackageIdGenerator::generate(Auth::user()->id, $this->name),
+            'package_number' => Package::generate(Auth::user()->id, $this->name),
             'senders_full_address' => $this->convert_adress($senders_full_address),
             'recipients_full_address' => $this->convert_adress($recipients_full_address),
         ]);

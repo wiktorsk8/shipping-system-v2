@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 
 class GoogleApiService
@@ -37,12 +38,18 @@ class GoogleApiService
     {
         $result = str_replace(" ", "+", $data);
 
+        //dd($result);
+
         $params = [
             'address' => $result,
             'key' => config('services.google_api.key')
         ];
 
         $response = Http::get(config('services.google_api.geocode'), $params);
+
+        if (json_decode($response)->status != "OK"){
+            throw new Exception("Zero results");
+        }
 
         $collection = collect(json_decode($response)->results[0]->geometry->location);
 

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 
-use App\Helpers\Package\PackageIdGenerator;
+use App\Models\Package;
 use App\Helpers\Package\PackageStatus;
 use App\Helpers\User\UserList;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -36,7 +36,7 @@ class PackageFactory extends Factory
             'cash_on_delivery'=> $this->faker->boolean(50),
             'senders_id' => $id,
             'receivers_id' => $this->faker->randomElement($everyUserId),
-            'package_number' => PackageIdGenerator::generate($id, $name),
+            'package_number' => Package::generate($id, $name),
             'status' => $this->faker->randomElement(PackageStatus::PACKAGE_STATUS),
 
         ];

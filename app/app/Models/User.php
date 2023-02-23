@@ -82,18 +82,18 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->role == 0 ? true : false;
+        return $this->role === 0;
     }
 
 
     public function isClient()
     {
-        return $this->role == 1 ? true : false;
+        return $this->role === 1;
     }
 
 
     public function isCourier()
     {
-        return $this->role == 2 ? true : false;
+        return $this->role === 2;
     }
 }
