@@ -64,13 +64,13 @@ class User extends Authenticatable
 
     public function sent()
     {
-        return $this->hasMany(Package::class, 'senders_id');
+        return $this->hasMany(Package::class, 'senders_email');
     }
 
 
     public function receiving()
     {
-        return $this->hasMany(Package::class, 'receivers_id');
+        return $this->hasMany(Package::class, 'recipients_email');
     }
 
     public function deliveries(){

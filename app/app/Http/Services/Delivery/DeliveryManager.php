@@ -20,7 +20,7 @@ class DeliveryManager
     {
         $this->your_location = User::where('id', Auth::id())->value('location');
         if ($this->your_location == null) {
-            throw new Exception('Your location set to null.');
+            return redirect()->back()->withErrors(['msg' => 'Set your location!']);
         }
 
         return $this->callculateRoute();

@@ -18,6 +18,9 @@
                         <x-primary-button>
                           {{'update'}}
                       </x-primary-button>
+                        @if($errors->any())
+                        <h4 style="color: red">{{$errors->first()}}</h4>
+                        @endif
                       </form>
                         <table class="table table-hover mb-0">
                           <thead>
@@ -25,9 +28,9 @@
                            
                             <th scope="col">Package Name</th>
                             <th scope="col">Package Size</th>
-                            <th scope="col">Senders Address</th>
-                            <th scope="col">Receivers Address</th>
-                            <th scope="col">Show</th>
+                            <th scope="col">City</th>
+                            <th scope="col">Street</th>
+                        
                            
                               
                             </tr>
@@ -39,8 +42,8 @@
                                 
                                 <td>{{$package->name}}</td>
                                 <td>{{$package->size}}</td>
-                                <td>{{$package->senders_address}}</td>
-                                <td>{{$package->receivers_address}}</td>
+                                <td>{{$package->address->city}}</td>
+                                <td>{{$package->address->street_name}}</td>
                                 <td>
                                     <a href={{'packages/show/'.$package->package_number}} class="text-decoration-none">
                                         <x-primary-button>

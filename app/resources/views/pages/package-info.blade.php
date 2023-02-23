@@ -13,12 +13,9 @@
                         <tr>
                           <th scope="col">Package Number</th>
                           <th scope="col">Package Name</th>
-                          <th scope="col">Senders Address</th>
-                          <th scope="col">Receivers Address</th>
                           <th scope="col">Package Size</th>
-                          <th scope="col">Cash On Delivery</th>
-                          <th scope="col">Senders Id</th>
-                          <th scope="col">Receivers Id</th>
+                          <th scope="col">senders email</th>
+                          <th scope="col">Recipients email</th>
                           <th scope="col">Status</th>
                           <th scope="col"></th>
                         </tr>
@@ -27,14 +24,11 @@
                         <tr>
                             <td>{{$package->package_number}}</td>
                             <td>{{$package->name}}</td>
-                            <td>{{$package->senders_address}}</td>
-                            <td>{{$package->receivers_address}}</td>
                             <td>{{$package->size}}</td>
-                            <td>{{$package->cash_on_delivery}}</td>
-                            <td>{{$package->senders_id}}</td>
-                            <td>{{$package->receivers_id}}</td>
+                            <td>{{$package->senders_email}}</td>
+                            <td>{{$package->recipients_email}}</td>
                             <td>{{$package->status}}</td>
-                            <td> <a href="{{route('deliveries.create',$package)}}" class="text-decoration-none">
+                            <td> <a href="#" class="text-decoration-none">
                                     <x-primary-button>
                                         {{'Start Delivery'}}
                                     </x-primary-button>
