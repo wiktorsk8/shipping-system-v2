@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Services\GoogleApi;
 
 use Exception;
 use Illuminate\Support\Facades\Http;

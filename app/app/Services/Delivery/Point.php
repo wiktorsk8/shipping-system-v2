@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers\Package;
+namespace App\Services\Delivery;
 
 // Helper class for callculating delivery route
 

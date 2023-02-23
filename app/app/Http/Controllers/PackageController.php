@@ -7,15 +7,14 @@ use App\Http\Requests\StorePackageRequest;
 use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Services\PackageService;
-use App\Services\Package\PackageService as Service;
+use App\Services\Package\PackageService;
 use App\Models\User;
 use App\Services\Address\AddressService;
 
 class PackageController extends Controller
 {
     public function __construct(
-        protected Service $packageService,
+        protected PackageService $packageService,
         protected AddressService $addressService,
     )
     {}
@@ -59,12 +58,6 @@ class PackageController extends Controller
         }
 
         return view('pages.package-info', ['package' => $package]);
-    }
-
-    public function update(Request $request, Package $package)
-    {
-        // in progress
-        redirect('/dashboard');
     }
 
     public function destroy(Package $package)

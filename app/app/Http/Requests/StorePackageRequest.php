@@ -3,11 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Models\Package;
-use App\Helpers\Package\PackageStatus;
+use App\Helpers\Enums\PackageStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Validation\Rules\Enum;
 
 class StorePackageRequest extends FormRequest
 {
@@ -32,7 +32,7 @@ class StorePackageRequest extends FormRequest
             'package_number' => ['required'],
             'name' => ['required'],
             'size' => ['required', Rule::in('XS', 'S', 'M', 'L', 'XL')],
-            'status' => ['required', Rule::in(PackageStatus::PACKAGE_STATUS)],
+            'status' => ['required', new Enum(PackageStatus::class)],
             'recipients_email' => ['required'],
             'senders_email' => ['required'],
             'city' => ['required'],
@@ -58,6 +58,7 @@ class StorePackageRequest extends FormRequest
 
     public function prepareForValidation()
     {
+
         $senders_full_address = [
             $this->street_name,
             $this->street_number,
@@ -75,7 +76,7 @@ class StorePackageRequest extends FormRequest
         ];
 
         $this->merge([
-            'status' => PackageStatus::PACKAGE_STATUS['In preparation'],
+            'status' => PackageStatus::IN_PREPARATION,
             'senders_email' => Auth::user()->email,
             'package_number' => Package::generate(Auth::user()->id, $this->name),
             'senders_full_address' => $this->convert_adress($senders_full_address),

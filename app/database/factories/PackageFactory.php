@@ -4,11 +4,11 @@ namespace Database\Factories;
 
 
 use App\Models\Package;
-use App\Helpers\Package\PackageStatus;
+use App\Helpers\Enums\PackageStatus;
 use App\Helpers\User\UserList;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Helpers\Enums\UserRole;
-use App\Models\User;
+
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Package>
@@ -37,7 +37,7 @@ class PackageFactory extends Factory
             'senders_id' => $id,
             'receivers_id' => $this->faker->randomElement($everyUserId),
             'package_number' => Package::generate($id, $name),
-            'status' => $this->faker->randomElement(PackageStatus::PACKAGE_STATUS),
+            'status' => $this->faker->randomElement(PackageStatus::toArray()),
 
         ];
     }
