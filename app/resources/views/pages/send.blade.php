@@ -21,9 +21,9 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="recipients_email">recipients_email</label>
-        <input type="text" class="form-control" id="recipients_email" name="recipients_email" placeholder="Enter recipients email">
-        <x-input-error :messages="$errors->get('recipients_email')" class="mt-2" />
+        <label for="recipient_email">recipient_email</label>
+        <input type="text" class="form-control" id="recipient_email" name="recipient_email" placeholder="Enter recipient email">
+        <x-input-error :messages="$errors->get('recipient_email')" class="mt-2" />
       </div>
         <div>
           <h1>Your addres:</h1>
@@ -59,30 +59,30 @@
           <h1>Recipients addres:</h1>
         </div>
         <div class="form-group">
-          <label for="recipients_city">City</label>
-          <input type="text" class="form-control" id="recipients_city" name="recipients_city" placeholder="ex. Poznan">
-          <x-input-error :messages="$errors->get('recipients_city')" class="mt-2" />
+          <label for="recipient_city">City</label>
+          <input type="text" class="form-control" id="recipient_city" name="recipient_city" placeholder="ex. Poznan">
+          <x-input-error :messages="$errors->get('recipient_city')" class="mt-2" />
         </div>
         
         <div class="form-group">
-          <label for="recipients_postal_code">Postal Code</label>
-          <input type="text" class="form-control" id="recipients_postal_code" name="recipients_postal_code" placeholder="XX-XXX">
-          <x-input-error :messages="$errors->get('recipients_postal_code')" class="mt-2" />
+          <label for="recipient_postal_code">Postal Code</label>
+          <input type="text" class="form-control" id="recipient_postal_code" name="recipient_postal_code" placeholder="XX-XXX">
+          <x-input-error :messages="$errors->get('recipient_postal_code')" class="mt-2" />
         </div>
         <div class="form-group">
-          <label for="recipients_street_name">street name</label>
-          <input type="text" class="form-control" id="recipients_street_name" name="recipients_street_name" placeholder="ex. Armii Krajowej">
-          <x-input-error :messages="$errors->get('recipients_street_name')" class="mt-2" />
+          <label for="recipient_street_name">street name</label>
+          <input type="text" class="form-control" id="recipient_street_name" name="recipient_street_name" placeholder="ex. Armii Krajowej">
+          <x-input-error :messages="$errors->get('recipient_street_name')" class="mt-2" />
         </div>
         <div class="form-group">
-          <label for="recipients_street_number">Street number</label>
-          <input type="text" class="form-control" id="recipients_street_number" name="recipients_street_number" placeholder="ex. Armii Krajowej 4(full name)">
-          <x-input-error :messages="$errors->get('recipients_street_number')" class="mt-2" />
+          <label for="recipient_street_number">Street number</label>
+          <input type="text" class="form-control" id="recipient_street_number" name="recipient_street_number" placeholder="ex. Armii Krajowej 4(full name)">
+          <x-input-error :messages="$errors->get('recipient_street_number')" class="mt-2" />
         </div>
         <div class="form-group">
-          <label for="recipients_flat_number">Flat number</label>
-          <input type="text" class="form-control" id="recipients_flat_number" name="recipients_flat_number" placeholder="ex. 4">
-          <x-input-error :messages="$errors->get('recipients_flat_number')" class="mt-2" />
+          <label for="recipient_flat_number">Flat number</label>
+          <input type="text" class="form-control" id="recipient_flat_number" name="recipient_flat_number" placeholder="ex. 4">
+          <x-input-error :messages="$errors->get('recipient_flat_number')" class="mt-2" />
         </div>
         <x-primary-button class="ml-3 m-3">
           {{ __('Submit') }}

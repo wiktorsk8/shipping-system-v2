@@ -17,12 +17,12 @@ class Address extends Model
         'postal_code',
         'city',
         'coordinates',
-        'recipients_street_name',
-        'recipients_street_number',
-        'recipients_flat_number',
-        'recipients_postal_code',
-        'recipients_city',
-        'recipients_coordinates'
+        'recipient_street_name',
+        'recipient_street_number',
+        'recipient_flat_number',
+        'recipient_postal_code',
+        'recipient_city',
+        'recipient_coordinates'
     ];
 
     public function package(){

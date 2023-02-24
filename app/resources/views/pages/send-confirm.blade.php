@@ -4,17 +4,17 @@
             @csrf
             <input type="hidden" name="name" value="{{$request->name}}"/>
             <input type="hidden" name="size" value="{{$request->size}}"/>
-            <input type="hidden" name="recipients_email" value="{{$request->recipients_email}}"/>
+            <input type="hidden" name="recipient_email" value="{{$request->recipient_email}}"/>
             <input type="hidden" name="city" value="{{$request->city}}"/>
             <input type="hidden" name="postal_code" value="{{$request->postal_code}}"/>
             <input type="hidden" name="street_name" value="{{$request->street_name}}"/>
             <input type="hidden" name="street_number" value="{{$request->street_number}}"/>
             <input type="hidden" name="flat_number" value="{{$request->flat_number}}"/>
-            <input type="hidden" name="recipients_city" value="{{$request->recipients_city}}"/>
-            <input type="hidden" name="recipients_postal_code" value="{{$request->recipients_postal_code}}"/>
-            <input type="hidden" name="recipients_street_name" value="{{$request->recipients_street_name}}"/>
-            <input type="hidden" name="recipients_street_number" value="{{$request->recipients_street_number}}"/>
-            <input type="hidden" name="recipients_flat_number" value="{{$request->recipients_flat_number}}"/>
+            <input type="hidden" name="recipient_city" value="{{$request->recipient_city}}"/>
+            <input type="hidden" name="recipient_postal_code" value="{{$request->recipient_postal_code}}"/>
+            <input type="hidden" name="recipient_street_name" value="{{$request->recipient_street_name}}"/>
+            <input type="hidden" name="recipient_street_number" value="{{$request->recipient_street_number}}"/>
+            <input type="hidden" name="recipient_flat_number" value="{{$request->recipient_flat_number}}"/>
 
             <div>
                 <h1>Confirm package details</h1>
@@ -27,7 +27,7 @@
             </div>
 
             <div class="form-group">
-                <p>Recipients email: {{$request->recipients_email}}</p>    
+                <p>Recipients email: {{$request->recipient_email}}</p>    
             </div>
 
             <div>
@@ -59,23 +59,23 @@
             </div>
 
             <div class="form-group">
-                <p>Recipients city: {{$request->recipients_city}}</p>    
+                <p>Recipients city: {{$request->recipient_city}}</p>    
             </div>
 
             <div class="form-group">
-                <p>Postal code: {{$request->recipients_postal_code}}</p>    
+                <p>Postal code: {{$request->recipient_postal_code}}</p>    
             </div>
 
             <div class="form-group">
-                <p>Street name: {{$request->recipients_street_name}}</p>    
+                <p>Street name: {{$request->recipient_street_name}}</p>    
             </div>
 
             <div class="form-group">
-                <p>Street number: {{$request->recipients_street_number}}</p>    
+                <p>Street number: {{$request->recipient_street_number}}</p>    
             </div>
 
             <div class="form-group">
-                <p>Flat number: {{$request->recipients_flat_number}}</p>    
+                <p>Flat number: {{$request->recipient_flat_number}}</p>    
             </div>
 
             <x-primary-button class="ml-3 m-3">

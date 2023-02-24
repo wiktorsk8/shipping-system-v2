@@ -25,12 +25,12 @@ return new class extends Migration
             $table->string('postal_code');
             $table->string('city');
             $table->string('coordinates');
-            $table->string('recipients_street_name');
-            $table->string('recipients_street_number');
-            $table->string('recipients_flat_number')->nullable();
-            $table->string('recipients_postal_code');
-            $table->string('recipients_city');
-            $table->string('recipients_coordinates');
+            $table->string('recipient_street_name');
+            $table->string('recipient_street_number');
+            $table->string('recipient_flat_number')->nullable();
+            $table->string('recipient_postal_code');
+            $table->string('recipient_city');
+            $table->string('recipient_coordinates');
             $table->timestamps();
         });
     }

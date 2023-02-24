@@ -5,7 +5,7 @@ namespace App\Services\Address;
 use Illuminate\Http\Request;
 use App\Models\Address;
 use App\Models\Package;
-use App\Http\Services\GoogleApiService;
+use App\Services\GoogleApi\GoogleApiService;
 
 class AddressService
 {
@@ -18,13 +18,13 @@ class AddressService
             'flat_number' => $request->flat_number,
             'postal_code' => $request->postal_code,
             'city' => $request->city,
-            'coordinates' => GoogleApiService::addressToCoordinates($request->senders_full_address),
-            'recipients_street_name' => $request->recipients_street_name,
-            'recipients_street_number' => $request->recipients_street_number,
-            'recipients_flat_number' => $request->recipients_flat_number,
-            'recipients_postal_code' => $request->recipients_postal_code,
-            'recipients_city' => $request->recipients_city,
-            'recipients_coordinates' => GoogleApiService::addressToCoordinates($request->recipients_full_address)
+            'coordinates' => GoogleApiService::addressToCoordinates($request->sender_full_address),
+            'recipient_street_name' => $request->recipient_street_name,
+            'recipient_street_number' => $request->recipient_street_number,
+            'recipient_flat_number' => $request->recipient_flat_number,
+            'recipient_postal_code' => $request->recipient_postal_code,
+            'recipient_city' => $request->recipient_city,
+            'recipient_coordinates' => GoogleApiService::addressToCoordinates($request->recipient_full_address)
         ]);
     }
 }

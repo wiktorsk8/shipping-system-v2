@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-date_default_timezone_set('CET');  
+date_default_timezone_set('CET');
 
+use App\Helpers\Enums\PackageStatus as EnumsPackageStatus;
+use App\Helpers\Enums\UserRole;
 use App\Helpers\Package\PackageStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,10 +19,14 @@ class Package extends Model
         'name',
         'size',
         'status',
-        'senders_address_id',
-        'senders_email',
-        'recipients_address_id',
-        'recipients_email',
+        'sender_address_id',
+        'sender_email',
+        'recipient_address_id',
+        'recipient_email',
+    ];
+
+    protected $casts = [
+        'status' => PackageStatus::class,
     ];
     
     public function address(){
@@ -33,10 +39,6 @@ class Package extends Model
 
     public function sendersCoordinates(){  
         return explode(",", $this->address->coordinates);
-    }
-
-    public function getStatusKey(){
-        return array_search($this->status, PackageStatus::PACKAGE_STATUS);  // for displaying package status as string
     }
 
     public function setStatusAttributes($status){

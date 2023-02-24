@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('couriers_id');
+            $table->foreignId('courier_id');
             $table->foreignId('package_id');
             
             $table->timestamps();

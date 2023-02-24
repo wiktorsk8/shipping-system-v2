@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class GoogleApiService
 {
+
     public static function getDistance(string $origins, $destination)
     {
         $params = [
@@ -36,25 +37,30 @@ class GoogleApiService
 
     public static function addressToCoordinates(string $data)
     {
-        $result = str_replace(" ", "+", $data);
+        $response = self::geocodeCall($data);
 
-        //dd($result);
+        $collection = collect(json_decode($response)->results[0]->geometry->location);
+
+        return $collection->get('lat') . ',' . $collection->get('lng');
+
+    }
+    
+    public static function testGeocodeResponse($address){
+        if (json_decode(self::geocodeCall($address))->status != "OK"){
+            throw new Exception('Wrong input: '.$address);
+        }
+    }
+
+
+    public static function geocodeCall($data){
+
+        $result = str_replace(" ", "+", $data);
 
         $params = [
             'address' => $result,
             'key' => config('services.google_api.key')
         ];
 
-        $response = Http::get(config('services.google_api.geocode'), $params);
-
-        if (json_decode($response)->status != "OK"){
-            throw new Exception("Zero results");
-        }
-
-        $collection = collect(json_decode($response)->results[0]->geometry->location);
-
-        $coordinates = $collection->get('lat') . ',' . $collection->get('lng');
-
-        return $coordinates;
+        return  Http::get(config('services.google_api.geocode'), $params);
     }
 }

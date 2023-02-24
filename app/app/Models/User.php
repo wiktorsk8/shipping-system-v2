@@ -45,23 +45,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static $senders_address_fields = [
-        'city',
-        'postal_code',
-        'street_name',
-        'street_number',
-        'flat_number'
-    ];
-
-    public static $receivers_address_fields = [
-        'receivers_city',
-        'receivers_postal_code',
-        'receivers_street_name',
-        'receivers_street_number',
-        'receivers_flat_number'
-    ];
-
-
+    
     public function sent()
     {
         return $this->hasMany(Package::class, 'senders_email');
@@ -72,6 +56,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Package::class, 'recipients_email');
     }
+
 
     public function deliveries(){
         if ($this->isClient()){

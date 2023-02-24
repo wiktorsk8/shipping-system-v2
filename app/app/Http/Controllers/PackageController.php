@@ -42,6 +42,8 @@ class PackageController extends Controller
 
     public function store(StorePackageRequest $request)
     {
+        dd($request);
+
         $package = $this->packageService->store($request);
 
         $this->addressService->store($request, $package);
@@ -71,13 +73,6 @@ class PackageController extends Controller
         $package->delete();
 
         return redirect('/');
-    }
-
-    public function updateStatus(Package $package)
-    {
-        PackageService::pushStatus($package);
-
-        return redirect('dashboard');
     }
 
     public function loadTracking(Request $request)
