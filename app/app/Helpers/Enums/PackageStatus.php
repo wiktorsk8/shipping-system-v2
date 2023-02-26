@@ -10,7 +10,6 @@ enum PackageStatus: string
 
     case IN_PREPARATION = "in_preparation";
     case IN_DELIVERY = "in_delivery";
-    case DELIVERY = "delivery";
-    case READY_TO_PICKUP = 'ready_to_pickup';
+    case READY_TO_PICKUP = "ready_to_pickup";
 }
 

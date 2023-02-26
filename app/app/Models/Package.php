@@ -4,9 +4,7 @@ namespace App\Models;
 
 date_default_timezone_set('CET');
 
-use App\Helpers\Enums\PackageStatus as EnumsPackageStatus;
-use App\Helpers\Enums\UserRole;
-use App\Helpers\Package\PackageStatus;
+use App\Helpers\Enums\PackageStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,9 +17,7 @@ class Package extends Model
         'name',
         'size',
         'status',
-        'sender_address_id',
         'sender_email',
-        'recipient_address_id',
         'recipient_email',
     ];
 

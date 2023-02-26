@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('package_number')->unique();
             $table->string('name');
             $table->string('size');
-            $table->tinyInteger('status')->default(0);
+            $table->string('status')->default('in_preparation');
             $table->string('sender_email');
             $table->string('recipient_email');
-            
+
             $table->timestamps();
         });
     }

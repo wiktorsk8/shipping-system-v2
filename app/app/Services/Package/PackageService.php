@@ -2,31 +2,25 @@
 
 namespace App\Services\Package;
 
-use Illuminate\Http\Request;
+use App\DataTransferObjects\Package\StorePackageDTO;
 use App\Models\Package;
-use App\Helpers\Enums\PackageStatus;
-use App\Services\Address\AddressService;
-use App\Services\GoogleApi\GoogleApiService;
+
 
 class PackageService
 {
 
-    public function store(Request $request){
-
-        GoogleApiService::testGeocodeResponse($request->full_sender_address);
-        GoogleApiService::testGeocodeResponse($request->full_recipient_address);
-
+    public function store(StorePackageDTO $data): Package{
         return Package::create([
-            'package_number' => $request->package_number,
-            'name' => $request->name,
-            'status' => $request->status,
-            'size' => $request->size,
-            'recipient_email' => $request->recipient_email,
-            'sender_email' => $request->sender_email,
+            'package_number' => $data->package_number,
+            'name' => $data->name,
+            'status' => $data->status,
+            'size' => $data->size,
+            'recipient_email' => $data->recipient_email,
+            'sender_email' => $data->sender_email,
         ]);
     }
 
-    public static function readyToSend(){
-        return Package::where('status', '=', (string)PackageStatus::IN_PREPARATION)->get();
-    }
+    // public static function readyToSend(){
+    //     return Package::where('status', '=', (string)PackageStatus::IN_PREPARATION)->get();
+    // }
 }

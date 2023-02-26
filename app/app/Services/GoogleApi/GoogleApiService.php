@@ -2,8 +2,8 @@
 
 namespace App\Services\GoogleApi;
 
-use Exception;
 use Illuminate\Support\Facades\Http;
+use App\DataTransferObjects\Api\Google\GoogleAddressDTO;
 
 class GoogleApiService
 {
@@ -35,7 +35,7 @@ class GoogleApiService
         dd($response);
     }
 
-    public static function addressToCoordinates(string $data)
+    public static function addressToCoordinates(GoogleAddressDTO $data)
     {
         $response = self::geocodeCall($data);
 
@@ -44,17 +44,10 @@ class GoogleApiService
         return $collection->get('lat') . ',' . $collection->get('lng');
 
     }
-    
-    public static function testGeocodeResponse($address){
-        if (json_decode(self::geocodeCall($address))->status != "OK"){
-            throw new Exception('Wrong input: '.$address);
-        }
-    }
 
+    public static function geocodeCall(GoogleAddressDTO $data){
 
-    public static function geocodeCall($data){
-
-        $result = str_replace(" ", "+", $data);
+        $result = self::convertAddress($data);
 
         $params = [
             'address' => $result,
@@ -62,5 +55,9 @@ class GoogleApiService
         ];
 
         return  Http::get(config('services.google_api.geocode'), $params);
+    }
+
+    private static function convertAddress(GoogleAddressDTO $data){
+        return $data->street_name.'+'.$data->street_number.'+'.$data->postal_code.'+'.$data->city;
     }
 }

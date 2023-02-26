@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTransferObjects\Address\StoreAddressDTO;
+use App\DataTransferObjects\Package\StorePackageDTO;
 use App\Http\Requests\PrevalidateStoreRequest;
 use App\Http\Requests\StorePackageRequest;
 use App\Models\Package;
@@ -42,11 +44,14 @@ class PackageController extends Controller
 
     public function store(StorePackageRequest $request)
     {
-        dd($request);
+        $package_dto = new StorePackageDTO($request->validated());
+        $package = $this->packageService->store($package_dto);
 
-        $package = $this->packageService->store($request);
-
-        $this->addressService->store($request, $package);
+        $address_dto = new StoreAddressDTO($request->validated());
+        $this->addressService->store(
+            $address_dto,
+            $package
+        );
 
         return redirect()->route('dashboard');
     }
