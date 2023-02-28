@@ -6,7 +6,6 @@ use Illuminate\Support\Arr;
 
 class StorePackageDTO
 {
-    public readonly int $package_number;
     public readonly string $name;
     public readonly string $size;
     public readonly string $status;
@@ -16,7 +15,6 @@ class StorePackageDTO
 
     public function __construct(public readonly array $packageData)
     {
-        $this->package_number = Arr::get($packageData, 'package_number');
         $this->name = Arr::get($packageData, 'name');
         $this->size = Arr::get($packageData, 'size');
         $this->status = Arr::get($packageData, 'status');

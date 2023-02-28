@@ -29,7 +29,6 @@ class StorePackageRequest extends FormRequest
     public function rules()
     { 
         return [
-            'package_number' => ['required'],
             'name' => ['required'],
             'size' => ['required', Rule::in('XS', 'S', 'M', 'L', 'XL')],
             'status' => ['required', new Enum(PackageStatus::class)],
@@ -53,7 +52,6 @@ class StorePackageRequest extends FormRequest
         $this->merge([
             'status' => PackageStatus::IN_PREPARATION->value,
             'sender_email' => Auth::user()->email,
-            'package_number' => Package::generate(Auth::user()->id, $this->name),
         ]);
     }
 }

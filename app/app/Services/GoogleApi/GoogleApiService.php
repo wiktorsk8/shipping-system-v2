@@ -31,8 +31,6 @@ class GoogleApiService
         $key = config('services.google_api.key');
 
         $response = Http::post(config('services.google_api.geolocate') . 'key=' . $key);
-
-        dd($response);
     }
 
     public static function addressToCoordinates(GoogleAddressDTO $data)
@@ -42,7 +40,6 @@ class GoogleApiService
         $collection = collect(json_decode($response)->results[0]->geometry->location);
 
         return $collection->get('lat') . ',' . $collection->get('lng');
-
     }
 
     public static function geocodeCall(GoogleAddressDTO $data){

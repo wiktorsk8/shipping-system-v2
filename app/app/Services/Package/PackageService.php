@@ -3,15 +3,15 @@
 namespace App\Services\Package;
 
 use App\DataTransferObjects\Package\StorePackageDTO;
+use App\Events\PackageCreated;
 use App\Models\Package;
-
+use Illuminate\Support\Facades\Auth;
 
 class PackageService
 {
-
     public function store(StorePackageDTO $data): Package{
         return Package::create([
-            'package_number' => $data->package_number,
+            'package_number' => Package::generate(Auth::user()->id, $data->name),
             'name' => $data->name,
             'status' => $data->status,
             'size' => $data->size,
@@ -19,8 +19,4 @@ class PackageService
             'sender_email' => $data->sender_email,
         ]);
     }
-
-    // public static function readyToSend(){
-    //     return Package::where('status', '=', (string)PackageStatus::IN_PREPARATION)->get();
-    // }
 }

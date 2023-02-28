@@ -4,6 +4,7 @@ namespace App\Models;
 
 date_default_timezone_set('CET');
 
+use App\Events\PackageCreated;
 use App\Helpers\Enums\PackageStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -50,9 +51,9 @@ class Package extends Model
             } 
         }
     }
-    public static function generate(int $id, string $name): int
+    public static function generate(int $user_id, string $name)
     {    
-        $attributes = [$id, $name];                         // convert arguments into array
+        $attributes = [$user_id, $name];                         // convert arguments into array
 
         $time = str_replace(":", "", date("H:i:s"));        // sanitize date 
         $rand = rand(1000, 9999);                          

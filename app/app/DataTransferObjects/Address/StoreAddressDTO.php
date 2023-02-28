@@ -3,6 +3,7 @@
 namespace App\DataTransferObjects\Address;
 
 use Illuminate\Support\Arr;
+use App\Models\Package;
 
 class StoreAddressDTO
 {
@@ -19,11 +20,9 @@ class StoreAddressDTO
     public readonly string $recipient_postal_code;
     public readonly string $recipient_city;
 
-    public function __construct(public readonly array $addressData)
+    public function __construct(public readonly array $addressData, Package $package)
     {   
-        
-
-        $this->package_id = Arr::get($addressData, 'package_number');
+        $this->package_id = $package->package_number;
         $this->street_name = Arr::get($addressData, 'street_name');
         $this->street_number = Arr::get($addressData, 'street_number');
         $this->flat_number = Arr::get($addressData, 'flat_number', null);
@@ -35,7 +34,5 @@ class StoreAddressDTO
         $this->recipient_flat_number = Arr::get($addressData, 'recipient_flat_number', null);
         $this->recipient_postal_code = Arr::get($addressData, 'recipient_postal_code');
         $this->recipient_city = Arr::get($addressData, 'recipient_city');
-
-        
     }
 }
