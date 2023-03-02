@@ -47,7 +47,7 @@ class PackageController extends Controller
     {
         $package_dto = new StorePackageDTO($request->validated());
         $package = $this->packageService->store($package_dto);
-
+        
         $address_dto = new StoreAddressDTO($request->validated(), $package);
         $this->addressService->store(
             $address_dto,

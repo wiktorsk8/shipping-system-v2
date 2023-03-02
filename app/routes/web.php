@@ -18,7 +18,7 @@ use App\Models\Package;
 |
 */
 
-Route::get('/dashboard', [PageController::class, 'index'])->name('dashboard');
+Route::get('dashboard', [PageController::class, 'index'])->name('dashboard');
 
 
 Route::middleware('client')->group(function(){

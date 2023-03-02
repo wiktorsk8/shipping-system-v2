@@ -10,13 +10,18 @@ use Illuminate\Support\Facades\Auth;
 class PackageService
 {
     public function store(StorePackageDTO $data): Package{
-        return Package::create([
-            'package_number' => Package::generate(Auth::user()->id, $data->name),
-            'name' => $data->name,
-            'status' => $data->status,
-            'size' => $data->size,
-            'recipient_email' => $data->recipient_email,
-            'sender_email' => $data->sender_email,
-        ]);
+        
+        $package = new Package();
+        $package->name = $data->name;
+        $package->status = $data->status;
+        $package->size = $data->size;
+        $package->recipient_email = $data->recipient_email;
+        $package->sender_email =  $data->sender_email;
+
+        PackageCreated::dispatch($package);
+        
+        $package->save();
+
+        return $package;
     }
 }

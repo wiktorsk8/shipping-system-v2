@@ -16,14 +16,14 @@ class AddressService
             $addressData->street_number,
             $addressData->postal_code,
             $addressData->city);
-        $sender_coordinates = GoogleApiService::addressToCoordinates($sender_address);
-
+        // $sender_coordinates = GoogleApiService::addressToCoordinates($sender_address);
+        $sender_coordinates = "53.41,176.34";
         $recipient_address = new GoogleAddressDTO($addressData->recipient_street_name,
             $addressData->recipient_street_number,
             $addressData->recipient_postal_code,
             $addressData->recipient_city);
-        $recipient_coordinates = GoogleApiService::addressToCoordinates($recipient_address);
-
+        // $recipient_coordinates = GoogleApiService::addressToCoordinates($recipient_address);
+        $recipient_coordinates = "52.41,17.321";
         return  Address::create([
             'package_id' => $package->id,
             'street_name' => $addressData->street_name,

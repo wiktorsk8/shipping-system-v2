@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\PackageCreated;
+use App\Listeners\GeneratePackageId;
 use App\Listeners\GeneratePackageNumber;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -19,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        PackageCreated::class => [
+            GeneratePackageId::class
+        ]
     ];
 
     /**
